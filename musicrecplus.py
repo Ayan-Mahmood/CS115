@@ -5,10 +5,9 @@ Pledge:    _We pledge our honor that we have abided by the Stevens Honor System_
 
 CS115 - Music Recommender Project
 '''
-
 dic = {}
 newlist = {}
-#Idk what this main function is doing ngl, so I tried to make a simpler one at the bottom
+"""
 def main():
     try:
       artistList = []
@@ -23,6 +22,7 @@ def main():
           if name == "":
             print("Please enter a name with at least 1 symbol.")
             main()
+
           else:
               if not name in dic:
                   preferences(name) 
@@ -35,7 +35,7 @@ def main():
             main()
         else:
             preferences(name)
-
+"""
 def loadUsers(fileName):
     ''' Reads in a file of stored users' preferences
          stored in the file 'fileName'.
@@ -108,6 +108,7 @@ def recommendations(currUser, prefs, userMap):
     bestUser = findBestUser(currUser, prefs, userMap)
     recommendations = drop(prefs, userMap[bestUser])
     return recommendations
+
 def findBestUser(currUser, prefs, userMap):
     ''' Find the user whose tastes are closest to the current
         user.  Return the best user's name (a string) '''
@@ -207,18 +208,22 @@ def quitnsave():
                     myfile.write(artist + ",")
             myfile.write("\n")
     exit()
+
+def writeFile(fileName):
+    f = open(fileName, "w+")
+    f.close()
     
-# simpler main
+
 def main():
     ''' The main recommendation function '''
+    writeFile("musicrecplus.txt")
     userMap = loadUsers("musicrecplus.txt")
-    userName = input("Enter your name (put a $ symbol after your name if you wish your preferences to remain private):")
-    print ("Welcome,", userName)
-    prefs = preferences(userName, userMap)
+    userName = input("Enter your name (put a $ symbol after your name if you wish your preferences to remain private):\n")
+    prefs = preferences(userName)
     recs = recommendations(userName, prefs, userMap)
     # Print the user's recommendations
     menu(userName)
     saveUserPreferences(userName, prefs, userMap, PREF_FILE)
 if __name__ == "__main__":
         main()
-   
+    
